@@ -132,6 +132,7 @@ public class IPConverter {
 		//System.out.println(addressString);
 		
 		for(int r = 0; r < 6; r++) {
+			if(addressString.length() < r*6) break;
 			if(addressString.substring(r*6).length() < 6) {
 				//Last row
 				//System.out.println(addressString.substring(r*6));
@@ -179,9 +180,16 @@ public class IPConverter {
 		String result = "";
 		
 		for(String chunk : chunks) {
-			if(chunk.equals("") || chunk.equalsIgnoreCase("0")) {
+			if(chunk.equals("")) {
 				result += "0000";
-			} else {
+			} else if(chunk.length() < 4) {
+				String zeros = "";
+				for(int i = 4 - chunk.length(); i > 0; --i) {
+					zeros += "0";
+				}
+				result += zeros + chunk;
+			}
+			else {
 				result += chunk;	
 			}
 		}
