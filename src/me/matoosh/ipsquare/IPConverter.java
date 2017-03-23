@@ -72,6 +72,11 @@ public class IPConverter {
 			} else {
 				System.out.println("Image saved at: " + "./results/" + (address.toString().replaceAll("/", "").replaceAll(":", "-")));
 			}
+			try {
+				br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} else if(answer == 2) {
 			System.out.println("Specify the path of the image you want to convert...");
 			System.out.println("Path: ");
@@ -112,7 +117,12 @@ public class IPConverter {
 				img = createResizedCopy(img, 6, 6);
 			}
 			
-			System.out.println("Address of the image: " + intArrayToAddress(imgToIntArray(img)));
+			System.out.println("Address of the image: " + intArrayToAddress(imgToIntArray(img)).getHostAddress().replaceFirst("/", ""));
+			try {
+				br.readLine();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -265,7 +275,7 @@ public class IPConverter {
 		for (int x = 0; x < result.length; ++x) {
 		    for (int y = 0; y < result[0].length; ++y) {
 		        result[x][y] = (image.getRGB(x, y) + 16777216) / 10000;
-		        System.out.println("[" + x + "," + y + "] " +  (char)result[x][y]);
+		        //System.out.println("[" + x + "," + y + "] " +  (char)result[x][y]);
 		    }
 		}
 		
@@ -307,7 +317,7 @@ public class IPConverter {
 	 * @return
 	 */
 	private static BufferedImage createResizedCopy(BufferedImage originalImage, int scaledWidth, int scaledHeight){
-        System.out.println("Resizing the generated image...");
+        System.out.println("Resizing the image...");
         BufferedImage scaledBI = new BufferedImage(scaledWidth, scaledHeight, BufferedImage.TYPE_INT_RGB);
         Graphics2D g = scaledBI.createGraphics();
         
